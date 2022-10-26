@@ -1,6 +1,6 @@
 # NewsFeed
 
-![alt text](https://github.com/kayprogrammer/newsfeed/blob/main/static/media/display.png?raw=true)
+![alt text](https://github.com/kayprogrammer/newsfeed/blob/master/static/media/display.png?raw=true)
 
 ## Intro
 
