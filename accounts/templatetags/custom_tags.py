@@ -12,7 +12,7 @@ def header_data(context):
         site = About.objects.create(name="NewsFeed") 
     tags = Category.objects.all()
 
-    articles = Article.objects.all()[:10]
+    articles = Article.objects.all().select_related('category')[:10]
     return {'site': site, 'categories':tags, 'articles':articles,'request':context.get('request')}
 
 @register.inclusion_tag('news/footer-data.html', takes_context=True)

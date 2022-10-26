@@ -8,7 +8,7 @@ import sweetify
 
 class ContactPageView(View):
     def get(self, request):
-        popular_articles = Article.objects.filter(popular=True)[:5]
+        popular_articles = Article.objects.filter(popular=True).select_related('category')[:5]
         form = MessageForm()
         context = {'form': form, 'popular_articles': popular_articles}
         return render(request, 'others/contact.html', context)

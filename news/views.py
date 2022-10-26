@@ -10,7 +10,7 @@ from news.models import Article, ArticleViews, Category
 
 class HomeView(View):
     def get(self, request):
-        articles = Article.objects.all()
+        articles = Article.objects.all().select_related('category')
         categories = Category.objects.all()
 
         latest_articles = articles[:5]
@@ -129,7 +129,7 @@ class ArticleDetail(View):
             article.save()
 
         related_articles = article.category.articles.exclude(id=article.id)[:3]
-        popular_articles = articles.filter(popular=True).exclude(id=article.id)[:4]
+        popular_articles = articles.filter(popular=True).exclude(id=article.id).select_related('category')[:4]
         query_tags = sum(Category.objects.exclude(search_params=None).values_list('search_params', flat=True), []) 
 
         context = {'articles': articles, 'article': article, 'related_articles': related_articles, 'popular_articles':popular_articles, 'tags':query_tags, 'categories':categories}
