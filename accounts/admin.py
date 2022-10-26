@@ -90,7 +90,7 @@ class UserAdmin(BaseUserAdmin):
         return super().render_change_form(request, context, add, change, form_url, obj)
 
     def get_readonly_fields(self, request, obj=None):
-       if not obj.is_superuser:
+       if not request.user.is_superuser:
            self.readonly_fields = ['groups', 'user_permissions', 'is_staff', 'is_superuser', 'is_active']
        return self.readonly_fields
 
