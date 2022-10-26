@@ -33,6 +33,9 @@ class MessageAdmin(admin.ModelAdmin):
         ('General', {'fields': ['name', 'email', 'body', 'addressed', 'timestamp']}),
     )
 
+    def has_add_permission(self, request):
+        return False
+
 admin.site.site_header = mark_safe('<strong style="font-weight:bold;">NEWSFEED ADMIN</strong>')
 admin.site.register(About, AboutAdmin)
 admin.site.register(Message, MessageAdmin)

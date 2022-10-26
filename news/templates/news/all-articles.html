@@ -1,0 +1,105 @@
+{% extends 'news/index.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block title %}All News{% endblock %}
+
+{% block content %}
+  <section id="contentSection">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-8 category-stuff">
+        <h2 class="category-name"><span>ALL ARTICLES</span></h2>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <div class="left_content">
+          <div class="fashion_technology_area">
+            {% for article in articles %}
+              <div class="fashion">
+                <div class="single_post_content">
+                  <h2><span>{{article.timestamp}}</span></h2>
+                  <ul class="business_catgnav">
+                    <li>
+                      <figure class="bsbig_fig wow fadeInDown"> <a href="{{article.get_absolute_url}}" class="featured_img"> <img style="height: 250px; object-fit: cover;" alt="" src="{{article.imageURL}}"> <span class="overlay"></span> </a>
+                        <figcaption> <a href="{{article.get_absolute_url}}">{{article.title}}</a> </figcaption>
+                        <p>{{article.body|truncatechars:150|safe}}</p>
+                      </figure>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            {% empty %}
+              <p style="text-align: center; font-weight: bold; color: blue;">Sorry! No articles yet!</p>
+            {% endfor %}
+          </div>
+          {% if is_paginated %}
+          <div class="col-lg-8 col-md-8 col-sm-8" style="text-align: center; width:100%;">
+            <div class="pagination1">
+              <a {% if not page_obj.has_previous %}style="color: silver; pointer-events:none;" {% else %} href="?page={{ page_obj.previous_page_number }}"{% endif %}>&laquo;</a>
+              {% if page_obj.number|subtract:1 > 2 %}
+                <a href="?page=1">1...</a>
+              {% endif %}
+              {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                  <a href="?page={{num}}" {% if num == num %}class="active"{% endif %}>{{num}}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a href="?page={{num}}">{{num}}</a>  
+                {% endif %}
+              {% endfor %}
+              {% if page_obj.paginator.num_pages|subtract:page_obj.number > 2 %}
+              <a href="?page={{page_obj.paginator.num_pages}}">...{{page_obj.paginator.num_pages}}</a>  
+              {% endif %}
+              <a {% if not page_obj.has_next %}style="color: silver; pointer-events:none;"{% else %} href="?page={{ page_obj.next_page_number }}"{% endif %}>&raquo;</a>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+        
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <aside class="right_content">
+          <div class="single_sidebar">
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#category" aria-controls="home" role="tab" data-toggle="tab">Category</a></li>
+              <li role="presentation"><a href="#video" aria-controls="profile" role="tab" data-toggle="tab">Video</a></li>
+              <li role="presentation"><a href="#comments" aria-controls="messages" role="tab" data-toggle="tab">Tags</a></li>
+            </ul>
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="category">
+                <ul>
+                  {% for category in categories %}
+                    <li class="cat-item"><a href="{{category.get_absolute_url}}">{{category.name}}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="video">
+                <div class="vide_area">
+                  {% if video %}
+                    <video controls width="100%" height="250">
+                      <source src="{{video}}" type="video/mp4">
+                    </video>
+                  {% else %}
+                    <p style="text-align: center; font-weight: bold; color: blue;">No video available!</p>
+                  {% endif %}
+                </div>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="comments">
+                <ul>
+                  {% for tag in tags %}
+                    <li class="cat-item"><a href="{% url 'searched-articles' %}?search_query={{tag}}">{{tag}}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="single_sidebar wow fadeInDown">
+            <h2><span>Links</span></h2>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="{% url 'all-articles' %}">All Articles</a></li>
+              <li><a href="{% url 'contact' %}">Contact Us</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+</section>
+{% endblock %}

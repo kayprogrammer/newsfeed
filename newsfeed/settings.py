@@ -54,7 +54,6 @@ THIRD_PARTY_APPS = [
     'cloudinary_storage',
     'cloudinary',
     'debug_toolbar',
-    'multiselectfield',
 ]
 
 LOCAL_APPS = [
@@ -81,6 +80,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'others.middlewares.TimezoneMiddleware',
 ]
 
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -201,10 +201,10 @@ JAZZMIN_SETTINGS = {
     "site_header": "NEWSFEED",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": "media/logo.png",
+    "site_logo": "media/logo2.png",
 
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
-    "login_logo": "media/login_logo.png",
+    "login_logo": "images/logo.jpg",
 
     # CSS classes that are applied to the logo above
     "site_logo_classes": "img-circle",

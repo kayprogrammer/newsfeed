@@ -1,0 +1,30 @@
+{% load static %}
+<div class="footer_top">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="footer_widget wow fadeInLeftBig">
+          <h2>NEWS FEED</h2>
+          <img width="100%" height="250" style="object-fit: cover;" src="{% static 'media/logo.png' %}" />
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="footer_widget wow fadeInDown">
+          <h2>Categories</h2>
+          <ul class="tag_nav">
+            {% for category in categories %}
+                <li><a href="{{category.get_absolute_url}}">{{category.name}}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="footer_widget wow fadeInRightBig">
+          <h2>Contact</h2>
+          <p>{{site.desc}}</p>
+          <address>
+          {{site.address}} Email: {{site.email}} Phone: {{site.phone}}
+          </address>
+        </div>
+      </div>
+    </div>
+  </div>
